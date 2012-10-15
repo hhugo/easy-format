@@ -10,6 +10,7 @@ all:
 opt:
 	ocamlc -c easy_format.mli
 	ocamlopt -c -dtypes easy_format.ml
+	ocamlopt -I . -shared -linkall -o easy_format.cmxs easy_format.cmx
 	touch nativecode
 test: all simple_example.out
 	ocamlc -o test_easy_format -dtypes easy_format.cmo test_easy_format.ml
@@ -46,7 +47,7 @@ clean: soft-clean
 
 COMMON_INSTALL_FILES = META easy_format.cmi easy_format.mli
 BC_INSTALL_FILES = easy_format.cmo 
-NC_INSTALL_FILES = easy_format.cmx easy_format.o
+NC_INSTALL_FILES = easy_format.cmx easy_format.o easy_format.cmxs
 
 install:
 	echo "version = \"$(VERSION)\"" > META; cat META.tpl >> META
